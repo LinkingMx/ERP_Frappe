@@ -8,6 +8,12 @@ development/
 # Logs
 logs/
 
+# Sites (generado por Frappe)
+sites/
+
+# Backups
+backups/
+
 # Local environment files
 .env.local
 *.local.yaml
