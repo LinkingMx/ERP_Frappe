@@ -105,14 +105,14 @@ def list_tools():
             "clientInfo": {"name": "erp-mcp-client", "version": "1.0.0"}
         }
     }
-    make_request(message_url, init_msg)
+    make_request(message_url, init_msg, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     time.sleep(0.5)
     
     # Send initialized notification
     make_request(message_url, {
         "jsonrpc": "2.0",
         "method": "notifications/initialized"
-    })
+    }, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     time.sleep(0.5)
     
     # List tools
@@ -122,7 +122,7 @@ def list_tools():
         "id": req_id,
         "method": "tools/list"
     }
-    make_request(message_url, list_msg)
+    make_request(message_url, list_msg, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     
     # Wait for response
     tools = []
@@ -179,13 +179,13 @@ def call_tool(tool_name, args):
             "clientInfo": {"name": "erp-mcp-client", "version": "1.0.0"}
         }
     }
-    make_request(message_url, init_msg)
+    make_request(message_url, init_msg, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     time.sleep(0.5)
     
     make_request(message_url, {
         "jsonrpc": "2.0",
         "method": "notifications/initialized"
-    })
+    }, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     time.sleep(0.5)
     
     req_id = str(uuid.uuid4())
@@ -198,7 +198,7 @@ def call_tool(tool_name, args):
             "arguments": args
         }
     }
-    make_request(message_url, call_msg)
+    make_request(message_url, call_msg, headers={"Authorization": f"Bearer {AUTH_TOKEN}"})
     
     result = None
     start = time.time()
