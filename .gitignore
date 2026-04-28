@@ -1,0 +1,23 @@
+# Frappe apps (clonados de upstream)
+apps/frappe/
+apps/erpnext/
+
+# Development environment (generado automáticamente)
+development/
+
+# Logs
+logs/
+
+# Local environment files
+.env.local
+*.local.yaml
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
