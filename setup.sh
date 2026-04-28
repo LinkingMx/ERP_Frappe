@@ -85,6 +85,9 @@ docker compose -f docker-compose.dev.yml --env-file .env.dev exec -T backend bas
   bench set-config -g redis_queue 'redis://redis-queue:6379'
   bench set-config -g redis_socketio 'redis://redis-queue:6379'
   
+  # Asegurar que sites/apps.txt tenga ambas apps
+  printf 'frappe\nerpnext\n' > sites/apps.txt
+  
   # Crear symlinks a los repos clonados (para edición en host)
   echo 'Configurando symlinks a apps...'
   rm -rf apps/frappe apps/erpnext 2>/dev/null || true

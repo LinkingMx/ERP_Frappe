@@ -1,0 +1,25 @@
+2026-04-28 17:46:36,434 DEBUG cd frappe-bench && uv venv env --seed --python python3
+2026-04-28 17:46:37,471 LOG Getting frappe
+2026-04-28 17:46:37,471 DEBUG cd frappe-bench/apps && git clone https://github.com/frappe/frappe.git --branch version-16 --depth 1 --origin upstream
+2026-04-28 17:46:40,085 LOG Installing frappe
+2026-04-28 17:46:40,086 DEBUG cd /workspace/development/frappe-bench && uv pip install --quiet --upgrade -e /workspace/development/frappe-bench/apps/frappe  --python /workspace/development/frappe-bench/env/bin/python
+2026-04-28 17:46:48,095 DEBUG cd /workspace/development/frappe-bench/apps/frappe && yarn install --check-files
+2026-04-28 17:47:15,276 DEBUG cd frappe-bench && bench build
+2026-04-28 17:47:15,348 INFO /home/frappe/.local/bin/bench build
+2026-04-28 17:47:25,213 LOG setting up backups
+2026-04-28 17:47:25,297 LOG backups were set up
+2026-04-28 17:47:25,297 INFO Bench frappe-bench initialized
+2026-04-28 17:47:25,537 INFO /home/frappe/.local/bin/bench set-config -g db_host mariadb
+2026-04-28 17:47:25,928 INFO /home/frappe/.local/bin/bench set-config -gp db_port 3306
+2026-04-28 17:47:26,289 INFO /home/frappe/.local/bin/bench set-config -g redis_cache redis://redis-cache:6379
+2026-04-28 17:47:26,619 INFO /home/frappe/.local/bin/bench set-config -g redis_queue redis://redis-queue:6379
+2026-04-28 17:47:26,915 INFO /home/frappe/.local/bin/bench set-config -g redis_socketio redis://redis-queue:6379
+2026-04-28 17:47:57,245 INFO /home/frappe/.local/bin/bench new-site --mariadb-user-host-login-scope=% --db-root-password 123 --admin-password admin development.localhost
+2026-04-28 17:48:07,652 INFO /home/frappe/.local/bin/bench --site development.localhost install-app erpnext
+2026-04-28 17:48:08,456 INFO /home/frappe/.local/bin/bench --site development.localhost set-config developer_mode 1
+2026-04-28 17:48:08,750 INFO /home/frappe/.local/bin/bench --site development.localhost clear-cache
+2026-04-28 18:02:38,467 INFO /home/frappe/.local/bin/bench --site development.localhost install-app erpnext
+2026-04-28 18:03:27,062 INFO /home/frappe/.local/bin/bench --site development.localhost install-app erpnext
+2026-04-28 18:03:51,212 INFO /home/frappe/.local/bin/bench --site development.localhost list-apps
+2026-04-28 18:03:58,300 INFO /home/frappe/.local/bin/bench --site development.localhost set-config developer_mode 1
+2026-04-28 18:03:58,814 INFO /home/frappe/.local/bin/bench --site development.localhost clear-cache
