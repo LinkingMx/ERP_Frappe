@@ -1,0 +1,46 @@
+# MCP Gateway — Docker Compose para ERP Frappe
+# Este archivo gestiona el MCP Gateway para comunicación AI-Agent <-> Tools
+#
+# Uso:
+#   docker compose -f docker-compose.mcp.yml up -d
+#   docker compose -f docker-compose.mcp.yml down
+#
+# Para iniciar manualmente (modo desarrollo):
+#   docker mcp gateway run --servers context7,fetch,filesystem,github-official,memory,sequentialthinking --transport sse --port 8811 --log-calls
+
+services:
+  mcp-gateway:
+    image: docker/mcp-gateway:latest
+    container_name: erp-mcp-gateway
+    ports:
+      - "8811:8811"
+    volumes:
+      - ~/.docker/mcp/catalog.yaml:/app/catalog.yaml:ro
+      - ~/.docker/mcp/config.yaml:/app/config.yaml:ro
+      - ~/.docker/mcp/registry.yaml:/app/registry.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - MCP_GATEWAY_AUTH_TOKEN=${MCP_GATEWAY_AUTH_TOKEN:-}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    command:
+      - gateway
+      - run
+      - --servers
+      - context7,fetch,filesystem,github-official,memory,sequentialthinking
+      - --transport
+      - sse
+      - --port
+      - "8811"
+      - --log-calls
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8811/sse"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - erp-network
+
+networks:
+  erp-network:
+    driver: bridge
