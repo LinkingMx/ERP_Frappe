@@ -70,6 +70,38 @@ gh-push: ## Hace push de cambios a GitHub
 	git commit -m "update: cambios locales $$(date +%Y-%m-%d_%H:%M)" || true
 	git push origin main
 
+# Backups
+backup: ## Backup automático (full los domingos, inc otros días)
+	./backup.sh all
+
+backup-full: ## Backup FULL de MariaDB
+	./backup.sh full
+
+backup-inc: ## Backup INCREMENTAL de MariaDB
+	./backup.sh inc
+
+backup-files: ## Backup de archivos con Restic
+	./backup.sh files
+
+backup-status: ## Estado del sistema de backups
+	./backup.sh status
+
+backup-restore: ## Opciones de restauración
+	./backup.sh restore
+
+# Restic específico
+restic-init: ## Inicializa repositorio Restic
+	@docker compose -f docker-compose.backup.yml run --rm restic-init
+
+restic-snapshots: ## Lista snapshots de Restic
+	@docker compose -f docker-compose.backup.yml run --rm restic-snapshots
+
+restic-forget: ## Rota backups antiguos de Restic
+	@docker compose -f docker-compose.backup.yml run --rm restic-forget
+
+restic-restore: ## Restaura último snapshot de Restic
+	@docker compose -f docker-compose.backup.yml run --rm restic-restore
+
 clean: ## Limpia volúmenes y contenedores (¡cuidado!)
 	$(COMPOSE) down -v
 	@docker volume rm -f erp_frappe_mariadb-data 2>/dev/null || true

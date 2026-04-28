@@ -20,6 +20,11 @@ services:
       - --collation-server=utf8mb4_unicode_ci
       - --skip-character-set-client-handshake
       - --skip-innodb-read-only-compressed
+      # Binlogs para Point-in-Time Recovery (PITR)
+      - --log-bin=/var/lib/mysql/binlog
+      - --binlog-format=ROW
+      - --expire-logs-days=7
+      - --max-binlog-size=100M
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-123}
       MARIADB_AUTO_UPGRADE: 1
